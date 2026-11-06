@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@500;700&display=swap" rel="stylesheet"><title>Aura Roast Battle</title>
+<title>Aura Battle</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff3d1;--fg:#1a1a1a;--card:#fff;--a:#ff5a1f;--b:#7c3aed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14101f;--fg:#f5f0ff;--card:#241c3a}}
@@ -79,7 +79,7 @@ linear-gradient(#150a2e 0 60%,#2a1650 60%)}
 .g button.sw:hover{transform:scale(1.15)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style></head><body><main>
-<h1>🔥 AURA ROAST BATTLE 🔥</h1>
+<h1>🔥 AURA BATTLE 🔥</h1>
 <div id="cc"><div class="card"><b>Create your fighter</b>
 <div id="pv" style="position:relative;height:110px;margin-top:22px"><div class="f" id="pv1" style="position:relative;left:auto;margin:0 auto;bottom:auto"></div></div>
 <input id="nm" maxlength="12" placeholder="Name your fighter" value="">
@@ -133,7 +133,7 @@ var CR=["Are you a parking ticket? Cuz you’ve got ‘fine’ written all over 
 var A=["Yo","Bruh","Honestly,","Ayo","Listen,","Nah fr,","Lowkey,","Bestie,","Sir,","Respectfully,","Not gonna lie,","Dude,"];
 var B=["your aura is looking mid","you roast like a wet napkin","I’ve seen better comebacks from a toaster","your confidence is buffering","you’re cooked and don’t even know it","your jokes need a software update","you’re about to get ratio’d","your vibe is a loading screen","I’m the main character here","your drip is a sad puddle","that last line was a participation trophy","your comeback is still in the oven"];
 var C=["so step up 🗿","no cap","L + ratio","try again, champ","it’s giving cringe","bring it on","aura check: failed","go touch grass","I’m not even trying","sheesh, that was weak"];
-var P,N,I,streak=0,best=0,busy=false;
+var P,N,I,streak=0,best=0,busy=false,gen=0;
 function $(i){return document.getElementById(i)}
 function R(a,b){return Math.floor(Math.random()*(b-a+1))+a}
 function taunt(){return A[R(0,11)]+" "+B[R(0,11)]+", "+C[R(0,9)]}
@@ -142,16 +142,18 @@ function boom(e){var a=$("arena");a.classList.add("shk");setTimeout(function(){a
 function say(id,t){var b=$(id);b.textContent=t;b.style.display=t?"block":"none"}
 function fl(side,t){var f=document.createElement("div");f.className="fl";f.textContent=t;f.style[side]="14%";$("arena").appendChild(f);setTimeout(function(){f.remove()},1100)}
 function anim(id,c){var e=$(id);e.classList.add(c);setTimeout(function(){e.classList.remove(c)},450)}
-function spawn(){P=50;N=50;I=NPCS[R(0,NPCS.length-1)];busy=false;
+function spawn(){gen++;P=50;N=50;I=NPCS[R(0,NPCS.length-1)];busy=false;
 $("op").innerHTML=I.e+"<small>"+I.n+"</small>";$("wk").textContent="Weak to: "+I.w+" roasts";
 say("b1","");say("b2",taunt());$("log").textContent=I.n+": "+I.o;bars();pick()}
-function pick(){var s=L.slice().sort(function(){return Math.random()-.5}).slice(0,3);
-if(!s.some(function(x){return x.k==I.w})){var f=L.filter(function(x){return x.k==I.w});s[0]=f[R(0,f.length-1)]}
-if(R(0,1)){var j=0;while(s[j].k==I.w)j++;s[j]={t:CR[R(0,CR.length-1)],k:"cringe"}}
+function pick(){
+var weak=L.filter(function(x){return x.k==I.w});
+var rest=L.filter(function(x){return x.k!=I.w}).sort(function(){return Math.random()-.5});
+var s=[weak[R(0,weak.length-1)],rest[0],rest[1]];
+if(R(0,1))s[R(1,2)]={t:CR[R(0,CR.length-1)],k:"cringe"};
 s.sort(function(){return Math.random()-.5});
 $("ch").innerHTML="";
 s.forEach(function(x){var b=document.createElement("button");b.textContent=x.t;b.onclick=function(){play(x)};$("ch").appendChild(b)})}
-function play(x){if(busy)return;busy=true;$("ch").innerHTML="";
+function play(x){if(busy)return;busy=true;$("ch").innerHTML="";var my=gen;
 var cr=x.k=="cringe",g=R(8,14),m="";
 if(cr){g=-R(10,16);m="🤡 SO CRINGE! You lose "+(-g)+" aura 📉"}else if(x.k==I.w){g+=14;m="💥 CRITICAL ROAST! "}else if(R(0,3)==0){g=R(2,5);m="😬 weak... "}
 P+=g;N-=g;if(!cr)m+="You gain +"+g+" aura ✨";
@@ -159,9 +161,10 @@ var h=0,t="";
 if(cr){t="💀 Bro... delete that."}else if(N>0){h=R(6,13);P-=h;N+=h;t=taunt()}
 P=Math.min(100,P);N=Math.max(0,N);
 say("b1",x.t);say("b2","");anim("pl","atk");
-setTimeout(function(){if(cr){anim("pl","hit");fl("left","−"+(-g)+" 🤡");say("b2",t)}else{anim("op","hit");fl("left","+"+g+" ✨");if(x.k==I.w)boom("🔥")}$("log").textContent=m;bars()},300);
-if(h){setTimeout(function(){say("b2",t);anim("op","atk");setTimeout(function(){anim("pl","hit");fl("right","−"+h);$("log").textContent=m+" · "+I.n+" steals "+h+" back";bars()},300)},1400)}
+setTimeout(function(){if(my!==gen)return;if(cr){anim("pl","hit");fl("left","−"+(-g)+" 🤡");say("b2",t)}else{anim("op","hit");fl("left","+"+g+" ✨");if(x.k==I.w)boom("🔥")}$("log").textContent=m;bars()},300);
+if(h){setTimeout(function(){if(my!==gen)return;say("b2",t);anim("op","atk");setTimeout(function(){if(my!==gen)return;anim("pl","hit");fl("right","−"+h);$("log").textContent=m+" · "+I.n+" steals "+h+" back";bars()},300)},1400)}
 setTimeout(function(){
+if(my!==gen)return;
 if(P>=100||N<=0){streak++;best=Math.max(best,streak);P=100;N=0;bars();say("b2","...I need a minute.");boom("🎉");
 $("log").textContent="🏆 "+I.n+" got roasted! You won with max aura.";
 $("ch").innerHTML='<button class="go" id="nx">Next opponent ➜</button>';$("nx").onclick=spawn}
@@ -177,6 +180,6 @@ function ui(){grid("gf",FA,"face");grid("gh",HA,"hat");grid("gc",CO,"col",1);dra
 $("nm").value=CH.name;$("nm").oninput=function(){CH.name=this.value.trim();draw($("pv1"))};
 $("fight").onclick=function(){try{localStorage.setItem("rb_ch",JSON.stringify(CH))}catch(e){}
 $("cc").style.display="none";$("game").style.display="block";draw($("pl"));$("pl_l").textContent=(CH.name||"YOUR")+" aura ✨";streak=0;spawn()};
-$("edit").onclick=function(){$("game").style.display="none";$("cc").style.display="block";ui()};
+$("edit").onclick=function(){gen++;busy=false;$("game").style.display="none";$("cc").style.display="block";ui()};
 ui();
 </script></body></html>
