@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@500;700&display=swap" rel="stylesheet"><title>Aura Roast Battle</title>
+<style>
+:root{--bg:#fff3d1;--fg:#1a1a1a;--card:#fff;--a:#ff5a1f;--b:#7c3aed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14101f;--fg:#f5f0ff;--card:#241c3a}}
+:root[data-theme="dark"]{--bg:#14101f;--fg:#f5f0ff;--card:#241c3a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Trebuchet MS",Arial,sans-serif;text-align:center}
+main{max-width:480px;margin:0 auto;padding:14px}
+h1{font-size:1.5rem;margin:6px 0;color:var(--a)}
+.card{background:var(--card);border:3px solid var(--fg);border-radius:16px;padding:12px;margin:10px 0}
+.em{font-size:4rem;animation:w 1s infinite alternate}
+@keyframes w{to{transform:rotate(8deg) scale(1.1)}}
+.bar{height:18px;background:#8884;border-radius:9px;overflow:hidden;margin:4px 0 8px}
+.bar i{display:block;height:100%;transition:width .4s}
+button{display:block;width:100%;margin:8px 0;padding:12px;font:inherit;font-size:1rem;color:var(--fg);background:var(--card);border:3px solid var(--fg);border-radius:12px;cursor:pointer}
+button:active{transform:scale(.97)}
+button.go{background:var(--a);color:#fff}
+#log{min-height:4.2em;font-weight:bold}
+.s{font-size:.85rem;opacity:.8}
+.hat{position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-size:2.1rem}
+.g{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.g button{width:auto;margin:0;padding:6px 10px;font-size:1.5rem;border-width:2px}
+.g button.on{background:var(--a);outline:3px solid var(--fg)}
+.sw{width:38px;height:38px;padding:0!important;border-radius:50%!important}
+#nm{width:100%;padding:10px;font:inherit;font-size:1rem;border:3px solid var(--fg);border-radius:12px;background:var(--card);color:var(--fg);text-align:center}
+#arena{position:relative;height:250px;margin:10px 0;border:3px solid var(--fg);border-radius:16px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#ffd86666,transparent 60%),linear-gradient(#2b1650 0 62%,#8a5a2b 62%)}
+.crowd{position:absolute;top:6px;left:0;right:0;font-size:1.1rem;letter-spacing:2px;opacity:.7;white-space:nowrap;overflow:hidden}
+.ring{position:absolute;left:6%;right:6%;top:62%;height:3px;background:#fff8}
+.f{position:absolute;bottom:22px;width:80px;font-size:4.2rem;line-height:1;transition:transform .25s}
+.f small{display:block;font-size:.7rem;color:#fff;font-weight:bold;margin-top:2px}
+#pl{left:8%}#op{right:8%;transform:scaleX(-1)}#op small{transform:scaleX(-1)}
+#pl.atk{transform:translateX(60px) rotate(8deg)}
+#op.atk{transform:scaleX(-1) translateX(60px) rotate(8deg)}
+.hit{animation:sh .4s}
+@keyframes sh{25%{filter:brightness(2) hue-rotate(40deg);margin-left:-8px}75%{margin-left:8px}}
+.bub{position:absolute;top:30px;max-width:46%;padding:6px 8px;background:#fff;color:#111;border:2px solid #111;border-radius:12px;font-size:.72rem;font-weight:bold;line-height:1.2;text-align:left;display:none}
+#b1{left:3%}#b2{right:3%}
+.fl{position:absolute;bottom:110px;font-weight:bold;font-size:1.2rem;color:#fff;text-shadow:0 0 4px #000;animation:up 1.1s forwards;pointer-events:none}
+@keyframes up{to{transform:translateY(-50px);opacity:0}}
+
+html:root:not([data-x]){--bg:#0b0618;--fg:#f4ecff;--card:#1a0f33cc;--b:#a855f7}
+body{font-family:"Fredoka","Trebuchet MS",sans-serif;background:radial-gradient(circle at 20% 0%,#4c1d9566,transparent 45%),radial-gradient(circle at 90% 100%,#be185d55,transparent 45%),var(--bg);background-attachment:fixed;min-height:100vh}
+h1{font-family:"Bungee","Impact",sans-serif;font-size:1.7rem;letter-spacing:1px;background:linear-gradient(90deg,#ff5a1f,#ec4899,#a855f7,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px #ec489988)}
+.card{border:2px solid #a855f7;box-shadow:0 0 18px #a855f755,inset 0 0 20px #a855f722;backdrop-filter:blur(6px)}
+button{border:2px solid #a855f7;background:#1a0f33;transition:transform .12s,box-shadow .12s,background .12s}
+button:hover{transform:translateY(-2px);box-shadow:0 0 16px #ec4899aa;background:#2a1650}
+button.go{font-family:"Bungee",sans-serif;background:linear-gradient(90deg,var(--a),#ec4899);border:none;box-shadow:0 0 20px var(--a)}
+.g button.on{box-shadow:0 0 14px var(--a);outline:2px solid #fff}
+#nm{border:2px solid #a855f7}
+.bar{height:20px;border:2px solid #fff3;background:#0006;box-shadow:inset 0 2px 6px #000a}
+.bar i{box-shadow:0 0 12px currentColor;background-image:linear-gradient(#fff4,transparent 55%)!important;background-blend-mode:overlay}
+#arena{height:270px;border:3px solid #a855f7;box-shadow:0 0 30px #a855f788;background:
+linear-gradient(105deg,transparent 30%,#ffffff1a 38%,transparent 46%),
+linear-gradient(255deg,transparent 30%,#22d3ee22 38%,transparent 46%),
+radial-gradient(ellipse at 50% 0%,#ec489955,transparent 65%),
+linear-gradient(#150a2e 0 60%,#2a1650 60%)}
+#arena::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:repeating-linear-gradient(90deg,#a855f733 0 2px,transparent 2px 36px),repeating-linear-gradient(#a855f733 0 2px,transparent 2px 22px);transform:perspective(200px) rotateX(35deg);transform-origin:bottom;opacity:.7}
+.ring{top:60%;height:4px;background:linear-gradient(90deg,#ec4899,#22d3ee);box-shadow:0 0 10px #ec4899;z-index:1}
+.crowd{animation:hop 1.1s ease-in-out infinite alternate;filter:saturate(1.3)}
+@keyframes hop{to{transform:translateY(-4px)}}
+.f{z-index:2;filter:drop-shadow(0 6px 6px #000a);animation:bob 1.2s ease-in-out infinite alternate}
+@keyframes bob{to{bottom:28px}}
+#pl{filter:drop-shadow(0 0 12px var(--a))}
+#op{filter:drop-shadow(0 0 12px var(--b))}
+.f small{font-family:"Bungee",sans-serif;font-size:.6rem;text-shadow:0 0 6px #000;white-space:nowrap;margin-left:-10px}
+.bub{z-index:4;box-shadow:3px 3px 0 #0006;font-family:"Fredoka",sans-serif;font-size:.78rem}
+.bub::after{content:"";position:absolute;bottom:-9px;left:18px;border:5px solid transparent;border-top:6px solid #111}
+.fl{font-family:"Bungee",sans-serif;font-size:1.5rem;z-index:5;color:#ffe14d}
+.shk{animation:shk .4s}
+@keyframes shk{20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(4px,-2px)}}
+.pt{position:absolute;left:50%;top:60%;font-size:1.4rem;z-index:6;pointer-events:none;animation:fly .9s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(360deg);opacity:0}}
+#log{font-size:1.05rem;text-shadow:0 0 8px #a855f7}
+.g button.sw{width:40px;height:40px;min-width:40px;padding:0;border-radius:50%;border:3px solid #fff4}
+.g button.sw.on{border-color:#fff;outline:3px solid #fff;outline-offset:2px;transform:scale(1.15)}
+.g button.sw:hover{transform:scale(1.15)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><main>
+<h1>🔥 AURA ROAST BATTLE 🔥</h1>
+<div id="cc"><div class="card"><b>Create your fighter</b>
+<div id="pv" style="position:relative;height:110px;margin-top:22px"><div class="f" id="pv1" style="position:relative;left:auto;margin:0 auto;bottom:auto"></div></div>
+<input id="nm" maxlength="12" placeholder="Name your fighter" value="">
+<div class="s">Face</div><div class="g" id="gf"></div>
+<div class="s">Hat</div><div class="g" id="gh"></div>
+<div class="s">Aura color</div><div class="g" id="gc"></div>
+<button class="go" id="fight">Enter the arena ➜</button></div></div>
+<div id="game" style="display:none"><div class="s">Wins: <b id="st">0</b> · Best: <b id="bs">0</b></div>
+<div id="arena"><div class="crowd">🧑🧍👩🧔🧑‍🦱👨🧒👧🧓👱🧑🧍👩🧔🧑‍🦱👨🧒👧🧓👱🧑🧍👩🧔</div><div class="ring"></div>
+<div class="bub" id="b1"></div><div class="bub" id="b2"></div>
+<div class="f" id="pl"></div><div class="f" id="op"></div></div>
+<div class="s" id="wk"></div>
+<div class="card">
+<div class="s" id="nl"></div><div class="bar"><i id="nb" style="background:var(--b)"></i></div>
+<div class="s" id="pl_l">YOUR aura ✨</div><div class="bar"><i id="pb" style="background:var(--a)"></i></div>
+<div class="s">Fill your bar to 100 to win. Hit 0 and you lose.</div>
+</div>
+<div id="log"></div>
+<div id="ch"></div>
+<button id="edit" style="font-size:.85rem;padding:6px">✏️ Edit character</button></div>
+</main>
+<script>
+var NPCS=[
+{n:"Keyboard Warrior",e:"⌨️",w:"tech",o:"Hot take incoming, buckle up."},
+{n:"Gym Bro",e:"🏋️",w:"gym",o:"Bro, do you even lift? Roast me, I dare you."},
+{n:"Brunch Karen",e:"🥑",w:"food",o:"I’d like to speak to your manager."},
+{n:"Main Character",e:"🎬",w:"ego",o:"Careful, you’re in my movie."},
+{n:"Thrift Hipster",e:"🧣",w:"fashion",o:"You wouldn’t know my style. It’s underground."}];
+var L=[
+{t:"Your Wi‑Fi has more confidence than you do.",k:"tech"},
+{t:"You rage‑quit a tutorial level. Twice.",k:"tech"},
+{t:"Your 'hot takes' are cold leftovers from 2014.",k:"tech"},
+{t:"Your password is 'password' and so is your personality.",k:"tech"},
+{t:"Your protein shake has more personality than you.",k:"gym"},
+{t:"You skip leg day AND arm day. What do you even do?",k:"gym"},
+{t:"The only thing you bench is your ambitions.",k:"gym"},
+{t:"You flex in mirrors because nobody else will.",k:"gym"},
+{t:"You’d send back a glass of water for being too wet.",k:"food"},
+{t:"Your avocado toast has a better career than you.",k:"food"},
+{t:"You Instagram your food so it’s the only thing getting likes.",k:"food"},
+{t:"Your cooking is why smoke alarms exist.",k:"food"},
+{t:"You’re the main character of a movie nobody’s watching.",k:"ego"},
+{t:"Your ego needs its own zip code.",k:"ego"},
+{t:"You’re so extra, even the buffet files a complaint.",k:"ego"},
+{t:"You introduce yourself in the third person. Yikes.",k:"ego"},
+{t:"Your outfit is lost and asking for directions.",k:"fashion"},
+{t:"That jacket called, it wants a divorce.",k:"fashion"},
+{t:"Your style is 'dressed in the dark by a raccoon'.",k:"fashion"},
+{t:"You’re so vintage, even your jokes are antiques.",k:"fashion"}];
+var CR=["Are you a parking ticket? Cuz you’ve got ‘fine’ written all over you.","I’m not saying I’m Batman, but... *dabs*","Roses are red, violets are blue, uhh... you’re mean?","Your mom! ...wait, no, I like your mom.","Hello fellow humans, how do you do, I too am a human like you 🤖","Ha! You’re so funny I forgot to laugh. Get it? Because I’m wearing a cape.","Sorry, I can’t hear you over my rizzler tutorial playlist."];
+var A=["Yo","Bruh","Honestly,","Ayo","Listen,","Nah fr,","Lowkey,","Bestie,","Sir,","Respectfully,","Not gonna lie,","Dude,"];
+var B=["your aura is looking mid","you roast like a wet napkin","I’ve seen better comebacks from a toaster","your confidence is buffering","you’re cooked and don’t even know it","your jokes need a software update","you’re about to get ratio’d","your vibe is a loading screen","I’m the main character here","your drip is a sad puddle","that last line was a participation trophy","your comeback is still in the oven"];
+var C=["so step up 🗿","no cap","L + ratio","try again, champ","it’s giving cringe","bring it on","aura check: failed","go touch grass","I’m not even trying","sheesh, that was weak"];
+var P,N,I,streak=0,best=0,busy=false;
+function $(i){return document.getElementById(i)}
+function R(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function taunt(){return A[R(0,11)]+" "+B[R(0,11)]+", "+C[R(0,9)]}
+function bars(){$("nb").style.width=Math.max(0,N)+"%";$("pb").style.width=Math.max(0,P)+"%";$("nl").textContent=I.n+" aura";$("st").textContent=streak;$("bs").textContent=best}
+function boom(e){var a=$("arena");a.classList.add("shk");setTimeout(function(){a.classList.remove("shk")},400);for(var i=0;i<16;i++){var p=document.createElement("span");p.className="pt";p.textContent=e;p.style.setProperty("--x",R(-140,140)+"px");p.style.setProperty("--y",R(-170,40)+"px");a.appendChild(p);(function(q){setTimeout(function(){q.remove()},950)})(p)}}
+function say(id,t){var b=$(id);b.textContent=t;b.style.display=t?"block":"none"}
+function fl(side,t){var f=document.createElement("div");f.className="fl";f.textContent=t;f.style[side]="14%";$("arena").appendChild(f);setTimeout(function(){f.remove()},1100)}
+function anim(id,c){var e=$(id);e.classList.add(c);setTimeout(function(){e.classList.remove(c)},450)}
+function spawn(){P=50;N=50;I=NPCS[R(0,NPCS.length-1)];busy=false;
+$("op").innerHTML=I.e+"<small>"+I.n+"</small>";$("wk").textContent="Weak to: "+I.w+" roasts";
+say("b1","");say("b2",taunt());$("log").textContent=I.n+": "+I.o;bars();pick()}
+function pick(){var s=L.slice().sort(function(){return Math.random()-.5}).slice(0,3);
+if(!s.some(function(x){return x.k==I.w})){var f=L.filter(function(x){return x.k==I.w});s[0]=f[R(0,f.length-1)]}
+if(R(0,1)){var j=0;while(s[j].k==I.w)j++;s[j]={t:CR[R(0,CR.length-1)],k:"cringe"}}
+s.sort(function(){return Math.random()-.5});
+$("ch").innerHTML="";
+s.forEach(function(x){var b=document.createElement("button");b.textContent=x.t;b.onclick=function(){play(x)};$("ch").appendChild(b)})}
+function play(x){if(busy)return;busy=true;$("ch").innerHTML="";
+var cr=x.k=="cringe",g=R(8,14),m="";
+if(cr){g=-R(10,16);m="🤡 SO CRINGE! You lose "+(-g)+" aura 📉"}else if(x.k==I.w){g+=14;m="💥 CRITICAL ROAST! "}else if(R(0,3)==0){g=R(2,5);m="😬 weak... "}
+P+=g;N-=g;if(!cr)m+="You gain +"+g+" aura ✨";
+var h=0,t="";
+if(cr){t="💀 Bro... delete that."}else if(N>0){h=R(6,13);P-=h;N+=h;t=taunt()}
+P=Math.min(100,P);N=Math.max(0,N);
+say("b1",x.t);say("b2","");anim("pl","atk");
+setTimeout(function(){if(cr){anim("pl","hit");fl("left","−"+(-g)+" 🤡");say("b2",t)}else{anim("op","hit");fl("left","+"+g+" ✨");if(x.k==I.w)boom("🔥")}$("log").textContent=m;bars()},300);
+if(h){setTimeout(function(){say("b2",t);anim("op","atk");setTimeout(function(){anim("pl","hit");fl("right","−"+h);$("log").textContent=m+" · "+I.n+" steals "+h+" back";bars()},300)},1400)}
+setTimeout(function(){
+if(P>=100||N<=0){streak++;best=Math.max(best,streak);P=100;N=0;bars();say("b2","...I need a minute.");boom("🎉");
+$("log").textContent="🏆 "+I.n+" got roasted! You won with max aura.";
+$("ch").innerHTML='<button class="go" id="nx">Next opponent ➜</button>';$("nx").onclick=spawn}
+else if(P<=0||N>=100){streak=0;P=0;N=100;bars();$("log").textContent="💀 "+I.n+" took all your aura. You got cooked.";
+$("ch").innerHTML='<button class="go" id="rs">Rematch 🔁</button>';$("rs").onclick=spawn}
+else{busy=false;pick()}},h?2400:1500)}
+var CH={name:"",face:"😎",hat:"👑",col:"#ff5a1f"};
+var FA=["😎","🤠","🥸","🤓","😈","🤡","👽","🤖","🦊","🐸"],HA=["","👑","🎩","🎓","🧢","👒","🪖"],CO=["#ff5a1f","#ec4899","#22c55e","#06b6d4","#eab308"];
+try{var sv=JSON.parse(localStorage.getItem("rb_ch"));if(sv&&sv.face)CH=sv}catch(e){}
+function draw(el){el.innerHTML="";var h=document.createElement("span");h.className="hat";h.textContent=CH.hat;el.appendChild(h);el.appendChild(document.createTextNode(CH.face));var m=document.createElement("small");m.textContent=CH.name||"YOU";el.appendChild(m)}
+function grid(id,arr,key,sw){var g=$(id);g.innerHTML="";arr.forEach(function(v){var b=document.createElement("button");if(sw){b.className="sw";b.style.background=v}else b.textContent=v||"∅";if(CH[key]==v)b.classList.add("on");b.onclick=function(){CH[key]=v;ui()};g.appendChild(b)})}
+function ui(){grid("gf",FA,"face");grid("gh",HA,"hat");grid("gc",CO,"col",1);draw($("pv1"));document.documentElement.style.setProperty("--a",CH.col)}
+$("nm").value=CH.name;$("nm").oninput=function(){CH.name=this.value.trim();draw($("pv1"))};
+$("fight").onclick=function(){try{localStorage.setItem("rb_ch",JSON.stringify(CH))}catch(e){}
+$("cc").style.display="none";$("game").style.display="block";draw($("pl"));$("pl_l").textContent=(CH.name||"YOUR")+" aura ✨";streak=0;spawn()};
+$("edit").onclick=function(){$("game").style.display="none";$("cc").style.display="block";ui()};
+ui();
+</script></body></html>
